@@ -25,6 +25,8 @@
 ## Description
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+<br>
+Learn NEST JS from SCRACTH
 
 ## Installation
 
