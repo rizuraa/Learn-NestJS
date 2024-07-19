@@ -1,8 +1,17 @@
 import { Controller, Get, Header, HttpCode, HttpRedirectResponse, Param, Post, Query, Redirect, Req, Res } from '@nestjs/common';
-import { Request, Response } from 'express';
+import { Request, response, Response } from 'express';
 
 @Controller('api/users')
 export class UserController {
+    // use template engine
+    @Get('/view/hello')
+    viewHello(@Query('name') name: string, @Res() response: Response){
+        response.render('index.html', {
+            title: 'learn express',
+            name: name,
+        })
+    }
+
     // use cookie
     @Get('/set-cookie')
     setCookie(@Query('name') name: string, @Res() response: Response){
