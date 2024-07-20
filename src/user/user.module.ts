@@ -4,6 +4,7 @@ import { UserService } from './user/user.service';
 import { Connection, MongoDBConnection, MySQLConnection } from './connection/connection';
 import { mailService, MailService } from './mail/mail.service';
 import { CreateUserRepository, UserRepository } from './user-repository/user-repository';
+import { MemberService } from './member/member.service';
 import * as process from 'process';
 
 @Module({
@@ -26,7 +27,8 @@ import * as process from 'process';
       provide: UserRepository,
       useFactory: CreateUserRepository,
       inject: [Connection],
-    }
+    },
+    MemberService
   ]
 })
 export class UserModule {}
