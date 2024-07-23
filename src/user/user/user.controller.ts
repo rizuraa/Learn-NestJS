@@ -1,4 +1,4 @@
-import { Controller, Get, Header, HttpCode, HttpRedirectResponse, Inject, Param, Post, Query, Redirect, Req, Res, UseFilters } from '@nestjs/common';
+import { Controller, Get, Header, HttpCode, HttpException, HttpRedirectResponse, Inject, Param, Post, Query, Redirect, Req, Res, UseFilters } from '@nestjs/common';
 import { Request, response, Response } from 'express';
 import { UserService } from './user.service';
 import { Connection } from '../connection/connection';
@@ -41,7 +41,17 @@ export class UserController {
     }
 
     @Get('/create')
-    async create(@Query('first_name')firstName: string, @Query('last_name')lastName: string, ): Promise<user> {
+    async create(
+        @Query('first_name')firstName: string,
+        @Query('last_name')lastName: string, 
+    ): Promise<user> {
+        // nest http exception
+        if (!firstName) {
+            throw new HttpException({
+                code: 400,
+                errors: 'first name required',
+            }, 400);
+        }
         return this.userRepository.save(
             firstName, lastName
         ) 
