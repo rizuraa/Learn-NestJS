@@ -58,7 +58,7 @@ export class UserController {
     }
 
     @Get('/hello')
-    @UseFilters(ValidationFilter)
+    // @UseFilters(ValidationFilter)
     async sayHello(@Query('name')name: string): Promise<string> {
         return this.service.sayHello(name); 
     }
