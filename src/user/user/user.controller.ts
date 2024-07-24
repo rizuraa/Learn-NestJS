@@ -5,12 +5,13 @@ import { Connection } from '../connection/connection';
 import { MailService } from '../mail/mail.service';
 import { UserRepository } from '../user-repository/user-repository';
 import { MemberService } from '../member/member.service';
-import { user } from '@prisma/client';
+import { User } from '@prisma/client';
 import { ValidationFilter } from 'src/validation/validation.filter';
 import { loginUserRequest, loginUserRequestValidation } from 'src/model/login.model';
 import { ValidationPipe } from 'src/validation/validation.pipe';
 import { string } from 'zod';
 import { TimeInterceptor } from 'src/time/time.interceptor';
+import { Auth } from 'src/auth/auth.decorator';
 
 @Controller('api/users')
 export class UserController {
@@ -25,6 +26,13 @@ export class UserController {
         // modulRef
         private memberService: MemberService,
     ){}
+
+    @Get('/current')
+    current(@Auth() user: User): Record<string, any> {
+        return {
+            data: `Hello ${user.first_name} ${user.last_name}`
+        }
+    }
 
     // provider use Inject decorator 
     // @Inject()
@@ -62,7 +70,7 @@ export class UserController {
     async create(
         @Query('first_name')firstName: string,
         @Query('last_name')lastName: string, 
-    ): Promise<user> {
+    ): Promise<User> {
         // nest http exception
         if (!firstName) {
             throw new HttpException({
