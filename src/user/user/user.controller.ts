@@ -12,10 +12,8 @@ import { ValidationPipe } from 'src/validation/validation.pipe';
 import { string } from 'zod';
 import { TimeInterceptor } from 'src/time/time.interceptor';
 import { Auth } from 'src/auth/auth.decorator';
-import { RoleGuard } from 'src/role/role.guard';
 import { Roles } from 'src/role/role.decorator';
 
-@UseGuards(RoleGuard)
 @Controller('api/users')
 export class UserController {
     // provider use constructure 
