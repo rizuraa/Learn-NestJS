@@ -1,4 +1,4 @@
-import { Controller, Get, Header, HttpCode, HttpException, HttpRedirectResponse, Inject, Param, Post, Query, Redirect, Req, Res, UseFilters } from '@nestjs/common';
+import { Controller, Get, Header, HttpCode, HttpException, HttpRedirectResponse, Inject, Param, ParseIntPipe, Post, Query, Redirect, Req, Res, UseFilters } from '@nestjs/common';
 import { Request, response, Response } from 'express';
 import { UserService } from './user.service';
 import { Connection } from '../connection/connection';
@@ -106,9 +106,11 @@ export class UserController {
     }
 
     // get id params 
+    // implement pipe 
     @Get('/:id')
-    getByParam(@Param('id') id: string): string {
-        return `Get Param ${id}`; 
+    getByParam(@Param('id', ParseIntPipe) id: number): string {
+        // console.info(id * 10);
+        return `Get ${id}`; 
     }
 
     // use post
